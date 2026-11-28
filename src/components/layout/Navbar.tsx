@@ -24,14 +24,22 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0F1B22]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 sm:px-6">
         <Link
           aria-label={`${site.name} — Beranda`}
-          className="font-display text-xl tracking-tight"
+          className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.26em] text-foreground"
           href="/"
         >
-          {site.name}
+          <span className="relative h-[30px] w-[32px] flex-none overflow-hidden">
+            <img
+              alt=""
+              aria-hidden="true"
+              className="absolute -left-[23px] -top-[20px] w-[80px] max-w-none mix-blend-screen"
+              src="/images/logo-deka.png"
+            />
+          </span>
+          <span>{site.name}</span>
         </Link>
 
         <nav
@@ -46,8 +54,8 @@ export function Navbar() {
                 key={item.href}
                 aria-current={pathname === item.href ? "page" : undefined}
                 className={cn(
-                  "text-sm text-foreground/70 transition-colors hover:text-foreground",
-                  pathname === item.href && "font-medium text-foreground"
+                  "text-sm text-foreground/75 transition-colors hover:text-foreground",
+                  pathname === item.href && "font-semibold text-foreground"
                 )}
                 href={item.href}
               >
@@ -61,12 +69,12 @@ export function Navbar() {
           aria-controls="mobile-menu"
           aria-expanded={open}
           aria-label={open ? "Tutup menu" : "Buka menu"}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-foreground lg:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-foreground lg:hidden"
           onClick={() => setOpen((v) => !v)}
           type="button"
         >
           <svg
-            aria-hidden
+            aria-hidden="true"
             className="h-5 w-5"
             fill="none"
             stroke="currentColor"
@@ -85,7 +93,7 @@ export function Navbar() {
       {open && (
         <nav
           aria-label="Navigasi seluler"
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-background lg:hidden"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-[#0F1B22]/95 backdrop-blur-xl lg:hidden"
           id="mobile-menu"
         >
           <ul className="mx-auto max-w-6xl space-y-1 px-4 py-4 sm:px-6">
@@ -94,8 +102,8 @@ export function Navbar() {
                 <Link
                   aria-current={pathname === item.href ? "page" : undefined}
                   className={cn(
-                    "flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-foreground/5",
-                    pathname === item.href && "bg-foreground/5 font-medium"
+                    "flex items-center justify-between rounded-lg px-3 py-2 text-sm text-foreground/85 transition-colors hover:bg-white/[0.06]",
+                    pathname === item.href && "bg-white/[0.08] font-semibold"
                   )}
                   href={item.href}
                 >
@@ -105,7 +113,7 @@ export function Navbar() {
                   </span>
                 </Link>
                 {item.children && (
-                  <ul className="ml-3 mt-1 space-y-1 border-l border-line pl-3">
+                  <ul className="ml-3 mt-1 space-y-1 border-l border-white/10 pl-3">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
@@ -113,9 +121,9 @@ export function Navbar() {
                             pathname === child.href ? "page" : undefined
                           }
                           className={cn(
-                            "flex items-center justify-between rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-foreground/5 hover:text-foreground",
+                            "flex items-center justify-between rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-white/[0.06] hover:text-foreground",
                             pathname === child.href &&
-                              "bg-foreground/5 text-foreground"
+                              "bg-white/[0.08] text-foreground"
                           )}
                           href={child.href}
                         >

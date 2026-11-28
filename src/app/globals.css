@@ -1,29 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warna Dark Mode sesuai PDF */
-  --color-background: #09090b;
-  --color-surface: #18181b;
-  --color-foreground: #f8fafc;
-  --color-muted: #a1a1aa;
-  --color-line: #27272a;
-  
-  /* Warna Aksen */
-  --color-accent: #ff5b1f;
-  --color-accent-2: #ffb347;
+  /* ===== Warna Brand DEKA CREATIVELY ===== */
+  --color-background: #0f1b22;
+  --color-surface: rgba(255, 255, 255, 0.08);
+  --color-foreground: #f4f6f8;
+  --color-muted: #9fb0bb;
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-accent: #ff6b3d;
+  --color-accent-2: #1bc0e8;
+  --color-accent-pink: #ec3a8c;
+  --color-accent-purple: #8a2be2;
+  --color-accent-blue: #1f6fe5;
+  --color-accent-amber: #ffb300;
+  --color-accent-soft: rgba(255, 107, 61, 0.18);
 
-  /* Font */
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument), Georgia, serif;
+  /* ===== Tipografi ===== */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
 
-  --radius-card: 1.5rem;
-  --shadow-glass: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4);
+  /* ===== Radius & Shadow ===== */
+  --radius-card: 1.375rem;
+  --shadow-glass: inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 24px 48px rgba(0, 0, 0, 0.28);
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
 
   body {
@@ -32,23 +39,164 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-accent-2);
     outline-offset: 2px;
+    border-radius: 4px;
   }
 
   ::selection {
-    background-color: rgba(255, 91, 31, 0.3);
+    background-color: rgba(236, 58, 140, 0.35);
     color: var(--color-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-/* Class khusus untuk efek teks gradasi warna sesuai PDF */
+/* Class khusus untuk efek teks gradasi warna pada halaman utama */
 .text-gradient {
-  background: linear-gradient(90deg, #ff8a00 0%, #e52e71 35%, #9b00e8 70%, #00b4db 100%);
+  background: linear-gradient(
+    90deg,
+    #ff8a00 0%,
+    #e52e71 35%,
+    #9b00e8 70%,
+    #00b4db 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* ===== Brand Spectrum Utilities ===== */
+.deka-spectrum-line {
+  background: linear-gradient(
+    90deg,
+    #ffb300 0%,
+    #ff6b3d 20%,
+    #ec3a8c 40%,
+    #8a2be2 62%,
+    #1f6fe5 82%,
+    #1bc0e8 100%
+  );
+}
+
+.deka-glass-surface {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+.deka-growth-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(21, 38, 47, 0.88), rgba(21, 38, 47, 0.88)) padding-box,
+    linear-gradient(
+        135deg,
+        #ffb300 0%,
+        #ec3a8c 45%,
+        #8a2be2 70%,
+        #1bc0e8 100%
+      )
+      border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Scroll Progress Indicator (CSS Scroll-Driven Animation + Fallback) ===== */
+@keyframes deka-grow-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.deka-scroll-progress {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .deka-scroll-progress {
+      animation: deka-grow-progress auto linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* ===== Scroll-Driven View Entry Subtle Scale/Parallax ===== */
+@keyframes deka-view-rise {
+  entry 0% {
+    opacity: 0.35;
+    transform: translate3d(0, 22px, 0) scale(0.98);
+  }
+  entry 100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .deka-view-scrub {
+      animation: deka-view-rise auto linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 42%;
+    }
+  }
+}
+
+@keyframes deka-orb-parallax {
+  from {
+    transform: translate3d(0, -28px, 0) scale(0.96);
+  }
+  to {
+    transform: translate3d(0, 36px, 0) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .deka-orb-scroll {
+      animation: deka-orb-parallax auto linear both;
+      animation-timeline: view(block);
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+/* ===== Accessible Form Validation (:user-invalid + Fallback) ===== */
+.deka-field-input:is(:user-invalid, .user-invalid-fallback) {
+  border-color: #f77db4;
+  background-color: rgba(236, 58, 140, 0.1);
+}
+
+.deka-field-input:is(:user-valid, .user-valid-fallback) {
+  border-color: rgba(27, 192, 232, 0.55);
+}
+
+.deka-visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
 }
