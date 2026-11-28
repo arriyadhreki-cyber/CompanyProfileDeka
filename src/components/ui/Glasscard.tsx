@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 export function GlassCard({
   className,
@@ -9,7 +9,7 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "relative rounded-card border border-line bg-white/60 backdrop-blur-md shadow-glass",
+        "relative rounded-card border border-white/10 bg-white/5 backdrop-blur-xl shadow-glass",
         className
       )}
       {...props}

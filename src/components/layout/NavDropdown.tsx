@@ -1,20 +1,8 @@
 import Link from "next/link";
+import type { NavItem } from "@/types/content";
+import { cn } from "@/lib/cn";
 
-interface NavDropdownItem {
-  label: string;
-  href: string;
-  children?: Array<{
-    label: string;
-    href: string;
-    number?: string | number;
-  }>;
-}
-
-/**
- * Dropdown desktop berbasis CSS-only (group-hover + focus-within)
- * agar tetap accessible via keyboard tanpa JS.
- */
-export function NavDropdown({ item }: { item: NavDropdownItem }) {
+export function NavDropdown({ item }: { item: NavItem }) {
   if (!item.children?.length) return null;
 
   return (
@@ -38,17 +26,22 @@ export function NavDropdown({ item }: { item: NavDropdownItem }) {
       </Link>
 
       <div
-        className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        className={cn(
+          "invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2 opacity-0 transition-all duration-150",
+          "group-hover:visible group-hover:opacity-100",
+          "group-focus-within:visible group-focus-within:opacity-100"
+        )}
       >
-        <ul className="min-w-[220px] rounded-xl border border-line bg-white/95 p-2 shadow-glass backdrop-blur-md">
+        {/* Di sini kita ubah bg-white/95 menjadi background gelap transparan */}
+        <ul className="min-w-[220px] rounded-xl border border-white/10 bg-[#09090b]/95 p-2 shadow-glass backdrop-blur-xl">
           {item.children.map((child) => (
             <li key={child.href}>
               <Link
-                className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground focus-visible:bg-foreground/5 focus-visible:text-foreground"
+                className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-white/10 hover:text-foreground focus-visible:bg-white/10 focus-visible:text-foreground"
                 href={child.href}
               >
                 <span>{child.label}</span>
-                <span className="text-[11px] tabular-nums text-muted">
+                <span className="text-[11px] tabular-nums text-muted/60">
                   {child.number}
                 </span>
               </Link>

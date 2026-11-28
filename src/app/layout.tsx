@@ -28,13 +28,6 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   authors: [{ name: site.name }],
-  keywords: [
-    "DEKA CREATIVELY",
-    "studio kreatif",
-    "jasa website",
-    "desain grafis",
-    "dokumentasi",
-  ],
   openGraph: {
     type: "website",
     locale: site.locale,
@@ -42,23 +35,6 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: site.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    images: ["/images/og-image.png"],
-  },
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
@@ -73,7 +49,7 @@ export default function RootLayout({
       lang="id"
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased selection:bg-accent/30">
         <a
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
           href="#main-content"
